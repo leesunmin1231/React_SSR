@@ -30,9 +30,7 @@ function TodoList() {
       ) : (
         <ListBox>
           <TodoInputBox />
-          {data.map((item: todoResponseType) => (
-            <TodoItemBox key={item.id} currentTodo={item} />
-          ))}
+          {data && data.map((item: todoResponseType) => <TodoItemBox key={item.id} currentTodo={item} />)}
         </ListBox>
       )}
     </TodoSection>

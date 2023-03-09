@@ -19,10 +19,10 @@ export default function Todo() {
       <TopBar>
         <Title>LOGO</Title>
         {isLogined ? (
-          <MiddleButton onClick={logoutAction}>로그아웃</MiddleButton>
+          <MiddleButton onClick={logoutAction}>Logout</MiddleButton>
         ) : (
           <Link to="/auth/login">
-            <MiddleButton>로그인</MiddleButton>
+            <MiddleButton>Login</MiddleButton>
           </Link>
         )}
       </TopBar>
