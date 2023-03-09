@@ -23,6 +23,11 @@ module.exports = {
     rules: [
       {
         oneOf: [
+          {
+            test: /\.tsx?$/,
+            use: 'ts-loader',
+            exclude: /node_modules/,
+          },
           // 자바스크립트를 위한 처리
           // 기존 webpack.config.js 를 참고하여 작성
           {
@@ -86,6 +91,7 @@ module.exports = {
   },
   resolve: {
     modules: ['node_modules'], // import 구문으로 불러오면 node_modules에서 불러옴
+    extensions: ['.tsx', '.ts', '.js'],
   },
   externals: [
     nodeExternals({

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import TodoList from '../components/TodoList';
 import { TodoFrame } from '../styles/frame';
@@ -18,7 +18,13 @@ export default function Todo() {
     <TodoFrame>
       <TopBar>
         <Title>LOGO</Title>
-        {isLogined && <MiddleButton onClick={logoutAction}>로그아웃</MiddleButton>}
+        {isLogined ? (
+          <MiddleButton onClick={logoutAction}>로그아웃</MiddleButton>
+        ) : (
+          <Link to="/auth/login">
+            <MiddleButton>로그인</MiddleButton>
+          </Link>
+        )}
       </TopBar>
       {isLogined ? <TodoList /> : <Loading />}
     </TodoFrame>

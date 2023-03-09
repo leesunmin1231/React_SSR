@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -73,7 +73,9 @@ export default function Login() {
       </AuthForm>
       <SignUpBox>
         <SignUpText>계정이 없으세요?</SignUpText>
-        <SignUpButton onClick={() => navigate('/auth/signup')}>회원가입</SignUpButton>
+        <Link to="/auth/signup">
+          <SignUpButton>회원가입</SignUpButton>
+        </Link>
       </SignUpBox>
     </AuthBox>
   );

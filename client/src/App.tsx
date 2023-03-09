@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Global, ThemeProvider } from '@emotion/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
@@ -19,13 +19,11 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <Global styles={globalStyle} />
           <AppStyle>
-            <Router>
-              <Routes>
-                <Route path="/auth/login" element={<Login />} />
-                <Route path="/auth/signup" element={<SignUp />} />
-                <Route path="/" element={<Todo />} />
-              </Routes>
-            </Router>
+            <Routes>
+              <Route path="/auth/login" element={<Login />} />
+              <Route path="/auth/signup" element={<SignUp />} />
+              <Route path="/" element={<Todo />} />
+            </Routes>
           </AppStyle>
           <Modal />
         </QueryClientProvider>
