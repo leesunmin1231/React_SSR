@@ -23,6 +23,7 @@ module.exports = {
     rules: [
       {
         oneOf: [
+          // 타입스크립트를 위한 처리
           {
             test: /\.tsx?$/,
             use: 'ts-loader',

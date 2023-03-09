@@ -56,6 +56,7 @@ const serve = express.static(path.resolve('./build'), {
 app.use(serve); // 순서 중요. serverRender 전에 위치해야한다.
 app.use(serverRender);
 
-app.listen(5050, () => {
-  console.log(`Now listening on port 5050`);
+app.listen(3000, () => {
+  // eslint-disable-next-line
+  console.log(`Now listening on port 3000`);
 });
