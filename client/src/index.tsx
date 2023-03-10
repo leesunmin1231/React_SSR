@@ -1,7 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { hydrateRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import { loadableReady } from '@loadable/component';
 import App from './App';
 
 function Root() {
@@ -13,10 +12,4 @@ function Root() {
 }
 
 const root = document.getElementById('root') as HTMLElement;
-if (process.env.NODE_ENV === 'production') {
-  loadableReady(() => {
-    ReactDOM.hydrate(<Root />, root);
-  });
-} else {
-  ReactDOM.render(<Root />, root);
-}
+hydrateRoot(root, <Root />);

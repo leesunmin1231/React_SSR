@@ -1,30 +1,19 @@
 import React, { Suspense } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import TodoList from '../components/TodoList';
 import { TodoFrame } from '../styles/frame';
 import { MiddleButton } from '../styles/common';
-import useAuthCheck from '../hooks/useAuthCheck';
 import Loading from '../components/Loading';
 
 export default function Todo() {
-  const navigate = useNavigate();
-  const { isLogined } = useAuthCheck();
-  const logoutAction = () => {
-    localStorage.removeItem('token');
-    navigate('/auth/login');
-  };
   return (
     <TodoFrame>
       <TopBar>
         <Title>LOGO</Title>
-        {isLogined ? (
-          <MiddleButton onClick={logoutAction}>Logout</MiddleButton>
-        ) : (
-          <Link to="/auth/login">
-            <MiddleButton>Login</MiddleButton>
-          </Link>
-        )}
+        <Link to="/auth/login">
+          <MiddleButton>Login</MiddleButton>
+        </Link>
       </TopBar>
       <Suspense fallback={<Loading />}>
         <TodoList />
