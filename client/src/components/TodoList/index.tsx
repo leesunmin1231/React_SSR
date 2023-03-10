@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import styled from '@emotion/styled';
 import { useQuery } from 'react-query';
 import TodoInputBox from './TodoInputBox';
@@ -16,7 +16,7 @@ interface SystemError {
 function TodoList() {
   const { setContent, closeModal } = useModal();
 
-  const { data, isLoading } = useQuery(['todos'], () => httpGet('/todos'), {
+  const { data } = useQuery(['todos'], () => httpGet('/todos'), {
     refetchOnWindowFocus: true,
     staleTime: 60 * 1000,
     suspense: true,
@@ -25,14 +25,12 @@ function TodoList() {
   return (
     <TodoSection>
       <Header>Todo List</Header>
-      {isLoading ? (
-        <Loading />
-      ) : (
+      <Suspense fallback={<Loading />}>
         <ListBox>
           <TodoInputBox />
           {data && data.map((item: todoResponseType) => <TodoItemBox key={item.id} currentTodo={item} />)}
         </ListBox>
-      )}
+      </Suspense>
     </TodoSection>
   );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import TodoList from '../components/TodoList';
@@ -26,7 +26,9 @@ export default function Todo() {
           </Link>
         )}
       </TopBar>
-      {isLogined ? <TodoList /> : <Loading />}
+      <Suspense fallback={<Loading />}>
+        <TodoList />
+      </Suspense>
     </TodoFrame>
   );
 }
