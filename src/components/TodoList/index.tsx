@@ -1,36 +1,37 @@
-import React, { Suspense } from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
-import { useQuery } from 'react-query';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from '../../module/store';
+import { ReducerType } from '../../module/rootReducer';
+import { fetchTodos, TodoSliceState } from '../../module/todos';
 import TodoInputBox from './TodoInputBox';
 import TodoItemBox from './TodoItemBox';
-import { httpGet } from '../../util/http';
 import Loading from '../Loading';
 import useModal from '../../hooks/useModal';
 import todoResponseType from '../../types/TodoResponse';
 
-interface SystemError {
-  code: string;
-  message: string;
-}
-
 function TodoList() {
   const { setContent, closeModal } = useModal();
-
-  const { data } = useQuery(['todos'], () => httpGet('/todos'), {
-    refetchOnWindowFocus: true,
-    staleTime: 60 * 1000,
-    suspense: true,
-    onError: (error: SystemError) => setContent(`${error}`, [{ name: '확인', handler: closeModal }]),
-  });
+  const dispatch = useDispatch<AppDispatch>();
+  const { loading, todos } = useSelector<ReducerType, TodoSliceState>((state) => state.todos);
+  useEffect(() => {
+    try {
+      dispatch(fetchTodos());
+    } catch (e) {
+      setContent(`${e}`, [{ name: 'Confirm', handler: closeModal }]);
+    }
+  }, [dispatch]);
   return (
     <TodoSection>
       <Header>Todo List</Header>
-      <Suspense fallback={<Loading />}>
-        <ListBox>
-          <TodoInputBox />
-          {data && data.map((item: todoResponseType) => <TodoItemBox key={item.id} currentTodo={item} />)}
-        </ListBox>
-      </Suspense>
+      <ListBox>
+        <TodoInputBox />
+        {loading ? (
+          <Loading />
+        ) : (
+          todos.map((item: todoResponseType) => <TodoItemBox key={item.id} currentTodo={item} />)
+        )}
+      </ListBox>
     </TodoSection>
   );
 }

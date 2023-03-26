@@ -1,10 +1,9 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import TodoList from '../components/TodoList';
 import { TodoFrame } from '../styles/frame';
 import { MiddleButton } from '../styles/common';
-import Loading from '../components/Loading';
 
 export default function Todo() {
   return (
@@ -15,9 +14,7 @@ export default function Todo() {
           <MiddleButton>Login</MiddleButton>
         </Link>
       </TopBar>
-      <Suspense fallback={<Loading />}>
-        <TodoList />
-      </Suspense>
+      <TodoList />
     </TodoFrame>
   );
 }
