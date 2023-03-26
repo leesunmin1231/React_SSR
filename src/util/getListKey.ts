@@ -1,4 +1,4 @@
 export const getListKey = () => {
-  const time = new Date();
-  return String(time.getTime());
+  const time = Math.random();
+  return String(time);
 };

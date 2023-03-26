@@ -9,18 +9,20 @@ import TodoItemBox from './TodoItemBox';
 import Loading from '../Loading';
 import useModal from '../../hooks/useModal';
 import todoResponseType from '../../types/TodoResponse';
+import { Preloader } from '../../lib/PreloaderContext';
 
 function TodoList() {
   const { setContent, closeModal } = useModal();
   const dispatch = useDispatch<AppDispatch>();
   const { loading, todos } = useSelector<ReducerType, TodoSliceState>((state) => state.todos);
   useEffect(() => {
+    if (todos && todos.length !== 0) return;
     try {
       dispatch(fetchTodos());
     } catch (e) {
       setContent(`${e}`, [{ name: 'Confirm', handler: closeModal }]);
     }
-  }, [dispatch]);
+  }, [dispatch, todos]);
   return (
     <TodoSection>
       <Header>Todo List</Header>
@@ -29,8 +31,9 @@ function TodoList() {
         {loading ? (
           <Loading />
         ) : (
-          todos.map((item: todoResponseType) => <TodoItemBox key={item.id} currentTodo={item} />)
+          todos && todos.map((item: todoResponseType) => <TodoItemBox key={item.id} currentTodo={item} />)
         )}
+        <Preloader resolve={() => dispatch(fetchTodos)} />
       </ListBox>
     </TodoSection>
   );

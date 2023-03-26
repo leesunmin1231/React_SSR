@@ -17,16 +17,19 @@ interface TodoResponseInterface {
 interface NewTodo {
   newTodo: TodoResponseInterface;
 }
+export type TodoSliceState = { loading: boolean; error: null | FetchError; todos: TodoResponseInterface[] };
 
 // 비동기 통신 구현
 export const fetchTodos = createAsyncThunk('todos/fetchTodos', async () => {
+  if (process.env.NODE_ENV === 'production') {
+    const data = await httpGet(`http://localhost:8080/todos`);
+    return data;
+  }
   const data = await httpGet(`/todos`);
   return data;
 });
 
-export type TodoSliceState = { loading: boolean; error: null | FetchError; todos: TodoResponseInterface[] };
-
-const initialState: TodoSliceState = { loading: false, error: null, todos: [] };
+export const initialState: TodoSliceState = { loading: false, error: null, todos: [] };
 
 export const todoList = createSlice({
   name: 'todoList',

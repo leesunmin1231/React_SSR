@@ -1,9 +1,12 @@
 import React from 'react';
-import { hydrateRoot } from 'react-dom/client';
+import { hydrateRoot, createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { PreloadedState } from '@reduxjs/toolkit';
+import { initStore, RootState } from './module/store';
 import App from './App';
-import store from './module/store';
+
+const store = initStore(window.__PRELOADED_STATE__ as PreloadedState<RootState>);
 
 function Root() {
   return (
@@ -16,4 +19,8 @@ function Root() {
 }
 
 const root = document.getElementById('root') as HTMLElement;
-hydrateRoot(root, <Root />);
+if (process.env.NODE_ENV === 'production') {
+  hydrateRoot(root, <Root />);
+} else {
+  createRoot(root).render(<Root />);
+}

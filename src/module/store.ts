@@ -1,9 +1,16 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, StateFromReducersMapObject, PreloadedState } from '@reduxjs/toolkit';
 import reducer from './rootReducer';
 
-const store = configureStore({
-  reducer,
-});
+export type RootState = StateFromReducersMapObject<typeof reducer>;
 
-export type AppDispatch = typeof store.dispatch;
-export default store;
+export function initStore(preloadedState?: PreloadedState<RootState>) {
+  return configureStore({
+    reducer,
+    preloadedState,
+  });
+}
+
+type Store = ReturnType<typeof initStore>;
+
+export type AppDispatch = Store['dispatch'];
+export const store = initStore();
