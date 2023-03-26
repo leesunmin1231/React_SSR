@@ -73,7 +73,6 @@ const serverRender = async (req: Request, res: Response) => {
   } catch (e) {
     return res.status(500);
   }
-  console.log(preloadContext);
   preloadContext.done = true;
   const root = ReactDOMServer.renderToString(jsx); // 렌더링
   const stateString = JSON.stringify(store.getState()).replace(/</g, '\\u003c');

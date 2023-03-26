@@ -10,11 +10,11 @@ const store = initStore(window.__PRELOADED_STATE__ as PreloadedState<RootState>)
 
 function Root() {
   return (
-    <BrowserRouter>
-      <Provider store={store}>
+    <Provider store={store}>
+      <BrowserRouter>
         <App />
-      </Provider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
