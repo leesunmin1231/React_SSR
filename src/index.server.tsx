@@ -7,7 +7,7 @@ import path from 'path';
 import fs from 'fs';
 import { Provider } from 'react-redux';
 import App from './App';
-import { store } from './module/store';
+import { initStore } from './module/store';
 import { TodoSliceState } from './module/todos';
 import PreloadContext, { ServerContext } from './lib/PreloaderContext';
 
@@ -19,7 +19,7 @@ type Response = {
 
 declare global {
   interface Window {
-    __PRELOADED_STATE__: TodoSliceState;
+    __PRELOADED_STATE__?: TodoSliceState;
   }
 }
 
@@ -58,6 +58,7 @@ const serverRender = async (req: Request, res: Response) => {
     done: false,
     promises: [],
   };
+  const store = initStore();
   const jsx = (
     <PreloadContext.Provider value={preloadContext}>
       <Provider store={store}>
@@ -75,8 +76,8 @@ const serverRender = async (req: Request, res: Response) => {
   }
   preloadContext.done = true;
   const root = ReactDOMServer.renderToString(jsx); // 렌더링
-  const stateString = JSON.stringify(store.getState()).replace(/</g, '\\u003c');
-  const stateScript = `<script>__PRELOADED_STATE__ = ${stateString}</script>`; // 리덕스 초기 상태를 스크립트로 주입
+  const stateString = JSON.stringify(store.getState().todos).replace(/</g, '\\u003c');
+  const stateScript = `<script>__PRELOADED_STATE__=${stateString}</script>`; // 리덕스 초기 상태를 스크립트로 주입
   return res.send(createPage(root, stateScript)); // 클라이언트에 결과물 응답
 };
 

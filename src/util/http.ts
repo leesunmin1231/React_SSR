@@ -15,14 +15,10 @@ export async function authPost(url: string, body: object): Promise<ResponseType>
 }
 
 export async function httpGet(url: string): Promise<any> {
-  const token = localStorage.getItem('token');
-  if (token === null) {
-    throw new Error('token error');
-  }
   const response: ResponseType = await axios.get(url, {
     headers: {
       'Content-Type': 'application/json',
-      Authorization: token,
+      Authorization: 'token',
     },
   });
   return response.data.data;

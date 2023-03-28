@@ -2,13 +2,12 @@ import React from 'react';
 import { hydrateRoot, createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { PreloadedState } from '@reduxjs/toolkit';
-import { initStore, RootState } from './module/store';
+import { initStore } from './module/store';
 import App from './App';
 
-const store = initStore(window.__PRELOADED_STATE__ as PreloadedState<RootState>);
-
+const store = initStore(window.__PRELOADED_STATE__);
 function Root() {
+  delete window.__PRELOADED_STATE__;
   return (
     <Provider store={store}>
       <BrowserRouter>

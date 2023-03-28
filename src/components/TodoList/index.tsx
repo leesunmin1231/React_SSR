@@ -14,8 +14,8 @@ import { usePreloader } from '../../lib/PreloaderContext';
 function TodoList() {
   const { setContent, closeModal } = useModal();
   const dispatch = useDispatch<AppDispatch>();
-  const { loading, todos } = useSelector<ReducerType, TodoSliceState>((state) => state.todos);
-  usePreloader(() => dispatch(fetchTodos));
+  usePreloader(() => dispatch(fetchTodos()));
+  const { todos, loading } = useSelector<ReducerType, TodoSliceState>((state) => state.todos);
   useEffect(() => {
     if (todos && todos.length !== 0) return;
     try {
@@ -32,7 +32,7 @@ function TodoList() {
         {loading ? (
           <Loading />
         ) : (
-          todos.map((item: todoResponseType) => <TodoItemBox key={item.id} currentTodo={item} />)
+          todos && todos.map((item: todoResponseType) => <TodoItemBox key={item.id} currentTodo={item} />)
         )}
       </ListBox>
     </TodoSection>
