@@ -147,7 +147,7 @@
   a:hover {
     color: #333;
   }
-`,j=require("react");var y=e.n(j);const v=require("@reduxjs/toolkit"),w=require("axios");var R=e.n(w);async function $(e,t){return R().post(e,t,{headers:{"Content-Type":"application/json"}})}const k=(0,v.createAsyncThunk)("todos/fetchTodos",(async()=>await async function(e){return(await R().get(e,{headers:{"Content-Type":"application/json",Authorization:"token"}})).data.data}("http://localhost:8080/todos"))),C=(0,v.createSlice)({name:"todoList",initialState:{loading:!1,error:null,todos:[]},reducers:{addTodo:(e,t)=>({...e,todos:[...e.todos,t.payload.newTodo]})},extraReducers:e=>{e.addCase(k.pending,(e=>({...e,loading:!0,error:null}))).addCase(k.fulfilled,((e,{payload:t})=>({...e,error:null,loading:!1,todos:t}))).addCase(k.rejected,((e,{payload:t})=>({...e,error:t,loading:!1})))}}),{addTodo:A}=C.actions,T=C.reducer,E=f().button`
+`,j=require("react");var y=e.n(j);const v=require("@reduxjs/toolkit"),w=require("axios");var R=e.n(w);async function $(e,t){return R().post(e,t,{headers:{"Content-Type":"application/json"}})}const k=(0,v.createAsyncThunk)("todos/fetchTodos",(async()=>await async function(e){return(await R().get(e,{headers:{"Content-Type":"application/json",Authorization:"token"}})).data}("http://localhost:8080/todos"))),C=(0,v.createSlice)({name:"todoList",initialState:{loading:!1,error:null,todos:[]},reducers:{addTodo:(e,t)=>({...e,todos:[...e.todos,t.payload.newTodo]})},extraReducers:e=>{e.addCase(k.pending,(e=>({...e,loading:!0,error:null}))).addCase(k.fulfilled,((e,{payload:t})=>({...e,error:null,loading:!1,todos:t}))).addCase(k.rejected,((e,{payload:t})=>({...e,error:t,loading:!1})))}}),{addTodo:A}=C.actions,T=C.reducer,E=f().button`
   width: 110px;
   height: 32px;
   border-radius: 5px;

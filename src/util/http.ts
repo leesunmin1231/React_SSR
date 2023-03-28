@@ -21,7 +21,7 @@ export async function httpGet(url: string): Promise<any> {
       Authorization: 'token',
     },
   });
-  return response.data.data;
+  return response.data;
 }
 
 export async function httpPost(url: string, body: object): Promise<any> {
