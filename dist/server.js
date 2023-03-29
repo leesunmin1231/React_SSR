@@ -1,4 +1,4 @@
-(()=>{"use strict";var e={n:t=>{var o=t&&t.__esModule?()=>t.default:()=>t;return e.d(o,{a:o}),o},d:(t,o)=>{for(var n in o)e.o(o,n)&&!e.o(t,n)&&Object.defineProperty(t,n,{enumerable:!0,get:o[n]})},o:(e,t)=>Object.prototype.hasOwnProperty.call(e,t)};const t=require("react/jsx-runtime"),o=require("react-dom/server");var n=e.n(o);const i=require("express");var r=e.n(i);const s=require("react-router-dom/server"),l=require("path");var a=e.n(l);const d=require("fs");var c=e.n(d);const h=require("react-redux"),p=require("react-router-dom"),u=require("@emotion/react"),x=require("@emotion/styled");var m=e.n(x);const g=u.css`
+(()=>{"use strict";var e={n:t=>{var o=t&&t.__esModule?()=>t.default:()=>t;return e.d(o,{a:o}),o},d:(t,o)=>{for(var n in o)e.o(o,n)&&!e.o(t,n)&&Object.defineProperty(t,n,{enumerable:!0,get:o[n]})},o:(e,t)=>Object.prototype.hasOwnProperty.call(e,t)};const t=require("react/jsx-runtime"),o=require("react-dom/server");var n=e.n(o);const i=require("express");var r=e.n(i);const s=require("react-router-dom/server"),l=require("path");var d=e.n(l);const a=require("fs");var c=e.n(a);const h=require("react-redux"),p=require("react-router-dom"),u=require("@emotion/react"),x=require("@emotion/styled");var m=e.n(x);const g=u.css`
   html,
   body,
   div,
@@ -244,7 +244,7 @@
   &:disabled {
     background-color: ${({theme:e})=>e.colors.WHITE};
   }
-`,B=(0,y.createSlice)({name:"modalInfo",initialState:{display:!1,message:"",buttons:[]},reducers:{addContent:(e,t)=>({...t.payload})}}),{addContent:G}=B.actions,M=B.reducer;function W(){const e=(0,h.useDispatch)();return{setContent:(t,o=[])=>{e(G({display:!0,message:t,buttons:o}))},closeModal:()=>{e(G({display:!1,message:"",buttons:[]}))}}}const H=b().memo((function({currentTodo:e}){const[o,n]=(0,f.useState)({title:e.title,content:e.content}),[i,r]=(0,f.useState)(!1),[s,l]=(0,f.useState)(!1),[a,d]=(0,f.useState)(!1),{setContent:c,closeModal:p}=W(),u=(0,h.useDispatch)(),x=async()=>{r(!1),l(!1);const t=await async function(e,t){return(await v().put(e,t,{headers:{"Content-Type":"application/json"}})).data}(w(`/todos/${e.id}`),o);u(C({newTodo:t}))},m=()=>{console.log(e),u(A(e.id)),async function(e){(await v().delete(e,{headers:{"Content-Type":"application/json"}})).data}(w(`/todos/${e.id}`)),p()};return(0,f.useEffect)((()=>{let e;return s?d(!0):e=setTimeout((()=>d(!1)),200),()=>{clearTimeout(e)}}),[s]),(0,t.jsxs)(O,{displayWriteBox:s,children:[i?(0,t.jsxs)(_,{children:[(0,t.jsx)(L,{type:"text",placeholder:"",onChange:e=>n((t=>({...t,title:e.target.value}))),onKeyDown:e=>{if(e.nativeEvent.isComposing)return;const{key:t}=e;"Enter"===t&&x()},value:o.title,autoFocus:!0}),(0,t.jsx)(I,{onClick:x,children:"✓"})]}):(0,t.jsxs)(_,{children:[(0,t.jsx)(N,{onClick:()=>l(!s),children:(0,t.jsx)(J,{children:e.title})}),(0,t.jsxs)(K,{children:[(0,t.jsx)(D,{onClick:()=>(r(!0),void l(!0)),isDelete:!1,children:"수정"}),(0,t.jsx)(D,{onClick:()=>{c("삭제 하시겠습니까?",[{name:"취소",handler:p},{name:"삭제",handler:m}])},isDelete:!0,children:"삭제"})]})]}),(0,t.jsx)(z,{displayWriteBox:s,children:a&&(0,t.jsx)(S,{placeholder:"",onChange:e=>n((t=>({...t,content:e.target.value}))),value:o.content,disabled:!i})})]})})),O=m().div`
+`,B=(0,y.createSlice)({name:"modalInfo",initialState:{display:!1,message:"",buttons:[]},reducers:{addContent:(e,t)=>({...t.payload})}}),{addContent:G}=B.actions,M=B.reducer;function W(){const e=(0,h.useDispatch)();return{setContent:(t,o=[])=>{e(G({display:!0,message:t,buttons:o}))},closeModal:()=>{e(G({display:!1,message:"",buttons:[]}))}}}const H=b().memo((function({currentTodo:e}){const[o,n]=(0,f.useState)({title:e.title,content:e.content}),[i,r]=(0,f.useState)(!1),[s,l]=(0,f.useState)(!1),[d,a]=(0,f.useState)(!1),{setContent:c,closeModal:p}=W(),u=(0,h.useDispatch)(),x=async()=>{r(!1),l(!1);const t=await async function(e,t){return(await v().put(e,t,{headers:{"Content-Type":"application/json"}})).data}(w(`/todos/${e.id}`),o);u(C({newTodo:t}))},m=()=>{u(A(e.id)),async function(e){(await v().delete(e,{headers:{"Content-Type":"application/json"}})).data}(w(`/todos/${e.id}`)),p()};return(0,f.useEffect)((()=>{let e;return s?a(!0):e=setTimeout((()=>a(!1)),200),()=>{clearTimeout(e)}}),[s]),(0,t.jsxs)(L,{displayWriteBox:s,children:[i?(0,t.jsxs)(O,{children:[(0,t.jsx)(z,{type:"text",placeholder:"",onChange:e=>n((t=>({...t,title:e.target.value}))),onKeyDown:e=>{if(e.nativeEvent.isComposing)return;const{key:t}=e;"Enter"===t&&x()},value:o.title,autoFocus:!0}),(0,t.jsx)(I,{onClick:x,children:"✓"})]}):(0,t.jsxs)(O,{children:[(0,t.jsx)(N,{onClick:()=>l(!s),children:(0,t.jsx)(J,{children:e.title})}),(0,t.jsxs)(K,{children:[(0,t.jsx)(D,{onClick:()=>(r(!0),void l(!0)),isDelete:!1,children:"수정"}),(0,t.jsx)(D,{onClick:()=>{c("삭제 하시겠습니까?",[{name:"취소",handler:p},{name:"삭제",handler:m}])},isDelete:!0,children:"삭제"})]})]}),(0,t.jsx)(_,{displayWriteBox:s,children:d&&(0,t.jsx)(S,{placeholder:"",onChange:e=>n((t=>({...t,content:e.target.value}))),value:o.content,disabled:!i})})]})})),L=m().div`
   width: 100%;
   height: ${({displayWriteBox:e})=>e?"255px":"55px"};
   transition: all 0.3s ease;
@@ -253,16 +253,16 @@
   justify-content: center;
   align-items: center;
   border-top: 1px solid ${({theme:e})=>e.colors.GRAY3};
-`,_=m().div`
+`,O=m().div`
   display: flex;
   width: 95%;
   height: 54px;
   align-items: center;
-`,z=m().div`
+`,_=m().div`
   width: 100%;
   height: ${({displayWriteBox:e})=>e?"200px":"0px"};
   transition: all 0.3s ease;
-`,L=m().input`
+`,z=m().input`
   width: 100%;
   height: 54px;
   border: 0px;
@@ -319,17 +319,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 `,se=m().div`
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
-`;function le(){return(0,t.jsxs)(se,{children:[(0,t.jsxs)(de,{children:[(0,t.jsx)(ae,{children:"LOGO"}),(0,t.jsx)(p.Link,{to:"/about",children:(0,t.jsx)(E,{children:"About"})})]}),(0,t.jsx)(te,{})]})}const ae=m().div`
+`;function le(){return(0,t.jsxs)(se,{children:[(0,t.jsxs)(ae,{children:[(0,t.jsx)(de,{children:"LOGO"}),(0,t.jsx)(p.Link,{to:"/about",children:(0,t.jsx)(E,{children:"About"})})]}),(0,t.jsx)(te,{})]})}const de=m().div`
   color: ${({theme:e})=>e.colors.WHITE};
   font-size: 30px;
   font-weight: 500;
-`,de=m().nav`
+`,ae=m().nav`
   width: 100%;
   height: 60px;
   box-shadow: rgb(0 0 0 / 20%) 0px 1px 5px 1px;
@@ -339,7 +340,7 @@
   align-items: center;
   padding-left: 50px;
   padding-right: 20px;
-`;function ce(){return(0,t.jsx)(re,{children:(0,t.jsx)("div",{children:"About"})})}const he={colors:{PRIMARY:"#5A85E3",PRIMARY_DARK:"#1F59D7",PRIMARY_LIGHT:"#B5C8F3",OFF_WHITE:"#F7F4FD",WHITE:"#FFFFFF",BLACK:"#333333",GRAY1:"#888888",GRAY2:"#BBBBBB",GRAY3:"#D7D7D7",GRAY4:"#EEEEEE",GRAY5:"#F5F5F5",RED:"#C83A68",LIGHT_BLACK:"#464646",POINT_COLOR:"#C75DE0",BACKGROUND:"#f8f9f9"}};function pe(){const{display:e,message:o,buttons:n}=(0,h.useSelector)((e=>e.modalInfo)),{closeModal:i}=W();return(0,t.jsxs)(xe,{isDisplay:e,children:[(0,t.jsx)(ue,{isDisplay:e,onClick:i}),e&&(0,t.jsxs)(me,{children:[(0,t.jsx)(ge,{children:o}),(0,t.jsx)(fe,{children:n.map((e=>(0,t.jsx)(E,{onClick:e.handler,children:e.name},(()=>{const e=Math.random();return String(e)})()+e.name)))})]})]})}const ue=m().div`
+`;function ce(){return(0,t.jsxs)(re,{children:[(0,t.jsx)("div",{children:"About"}),(0,t.jsx)(p.Link,{to:"/",children:(0,t.jsx)(E,{children:"Todo"})})]})}const he={colors:{PRIMARY:"#5A85E3",PRIMARY_DARK:"#1F59D7",PRIMARY_LIGHT:"#B5C8F3",OFF_WHITE:"#F7F4FD",WHITE:"#FFFFFF",BLACK:"#333333",GRAY1:"#888888",GRAY2:"#BBBBBB",GRAY3:"#D7D7D7",GRAY4:"#EEEEEE",GRAY5:"#F5F5F5",RED:"#C83A68",LIGHT_BLACK:"#464646",POINT_COLOR:"#C75DE0",BACKGROUND:"#f8f9f9"}};function pe(){const{display:e,message:o,buttons:n}=(0,h.useSelector)((e=>e.modalInfo)),{closeModal:i}=W();return(0,t.jsxs)(xe,{isDisplay:e,children:[(0,t.jsx)(ue,{isDisplay:e,onClick:i}),e&&(0,t.jsxs)(me,{children:[(0,t.jsx)(ge,{children:o}),(0,t.jsx)(fe,{children:n.map((e=>(0,t.jsx)(E,{onClick:e.handler,children:e.name},(()=>{const e=Math.random();return String(e)})()+e.name)))})]})]})}const ue=m().div`
   width: 100%;
   height: 100%;
   position: fixed;
@@ -387,4 +388,4 @@
   height: 100%;
   width: 100%;
   position: absolute;
-`,ye=function(){return(0,t.jsxs)(u.ThemeProvider,{theme:he,children:[(0,t.jsx)(u.Global,{styles:g}),(0,t.jsx)(be,{children:(0,t.jsxs)(p.Routes,{children:[(0,t.jsx)(p.Route,{path:"/about",element:(0,t.jsx)(ce,{})}),(0,t.jsx)(p.Route,{path:"/",element:(0,t.jsx)(le,{})})]})}),(0,t.jsx)(pe,{})]})},je=(0,y.combineReducers)({todos:$,modalInfo:M}),ve=JSON.parse(c().readFileSync(a().resolve("./build/asset-manifest.json"),"utf8")),we=r()(),Re=r().static(a().resolve("./build"),{index:!1});we.use(Re),we.use((async(e,o)=>{const i={done:!1,promises:[]},r=(0,y.configureStore)({reducer:je,preloadedState:{todos:undefined}});const l=(0,t.jsx)(ee.Provider,{value:i,children:(0,t.jsx)(h.Provider,{store:r,children:(0,t.jsx)(s.StaticRouter,{location:e.url,children:(0,t.jsx)(ye,{})})})});n().renderToStaticMarkup(l);try{await Promise.all(i.promises)}catch(e){return o.status(500)}i.done=!0;const a=n().renderToString(l),d=`<script>__PRELOADED_STATE__=${JSON.stringify(r.getState().todos).replace(/</g,"\\u003c")}<\/script>`;return o.send(((e,t)=>`<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><link rel="shortcut icon" href="/favicon.ico" /><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/><meta name="theme-color" content="#000000" /><title>React App</title></head><body><div id="root">${e}</div>${t}<script src="${ve.files["main.js"]}"><\/script></body></html>`)(a,d))})),we.listen(3e3,(()=>{console.log("Now listening on port 3000")}))})();
+`,ye=function(){return(0,t.jsxs)(u.ThemeProvider,{theme:he,children:[(0,t.jsx)(u.Global,{styles:g}),(0,t.jsx)(be,{children:(0,t.jsxs)(p.Routes,{children:[(0,t.jsx)(p.Route,{path:"/about",element:(0,t.jsx)(ce,{})}),(0,t.jsx)(p.Route,{path:"/",element:(0,t.jsx)(le,{})})]})}),(0,t.jsx)(pe,{})]})},je=(0,y.combineReducers)({todos:$,modalInfo:M}),ve=JSON.parse(c().readFileSync(d().resolve("./build/asset-manifest.json"),"utf8")),we=r()(),Re=r().static(d().resolve("./build"),{index:!1});we.use(Re),we.use((async(e,o)=>{const i={done:!1,promises:[]},r=(0,y.configureStore)({reducer:je,preloadedState:{todos:undefined}});const l=(0,t.jsx)(ee.Provider,{value:i,children:(0,t.jsx)(h.Provider,{store:r,children:(0,t.jsx)(s.StaticRouter,{location:e.url,children:(0,t.jsx)(ye,{})})})});n().renderToStaticMarkup(l);try{await Promise.all(i.promises)}catch(e){return o.status(500)}i.done=!0;const d=n().renderToString(l),a=`<script>__PRELOADED_STATE__=${JSON.stringify(r.getState().todos).replace(/</g,"\\u003c")}<\/script>`;return o.send(((e,t)=>`<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><link rel="shortcut icon" href="/favicon.ico" /><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/><meta name="theme-color" content="#000000" /><title>React App</title></head><body><div id="root">${e}</div>${t}<script src="${ve.files["main.js"]}"><\/script></body></html>`)(d,a))})),we.listen(3e3,(()=>{console.log("Now listening on port 3000")}))})();
