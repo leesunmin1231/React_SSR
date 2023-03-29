@@ -1,4 +1,4 @@
-(()=>{"use strict";var e={n:t=>{var o=t&&t.__esModule?()=>t.default:()=>t;return e.d(o,{a:o}),o},d:(t,o)=>{for(var r in o)e.o(o,r)&&!e.o(t,r)&&Object.defineProperty(t,r,{enumerable:!0,get:o[r]})},o:(e,t)=>Object.prototype.hasOwnProperty.call(e,t)};const t=require("react/jsx-runtime"),o=require("react-dom/server");var r=e.n(o);const n=require("express");var s=e.n(n);const i=require("react-router-dom/server"),a=require("path");var l=e.n(a);const d=require("fs");var c=e.n(d);const h=require("react-redux"),p=require("react-router-dom"),u=require("@emotion/react"),x=require("react-query"),m=require("recoil"),g=require("@emotion/styled");var f=e.n(g);const b=u.css`
+(()=>{"use strict";var e={n:t=>{var o=t&&t.__esModule?()=>t.default:()=>t;return e.d(o,{a:o}),o},d:(t,o)=>{for(var n in o)e.o(o,n)&&!e.o(t,n)&&Object.defineProperty(t,n,{enumerable:!0,get:o[n]})},o:(e,t)=>Object.prototype.hasOwnProperty.call(e,t)};const t=require("react/jsx-runtime"),o=require("react-dom/server");var n=e.n(o);const i=require("express");var r=e.n(i);const s=require("react-router-dom/server"),l=require("path");var a=e.n(l);const d=require("fs");var c=e.n(d);const h=require("react-redux"),p=require("react-router-dom"),u=require("@emotion/react"),x=require("@emotion/styled");var m=e.n(x);const g=u.css`
   html,
   body,
   div,
@@ -147,7 +147,7 @@
   a:hover {
     color: #333;
   }
-`,j=require("react");var y=e.n(j);const v=require("@reduxjs/toolkit"),w=require("axios");var R=e.n(w);async function $(e,t){return R().post(e,t,{headers:{"Content-Type":"application/json"}})}const k=(0,v.createAsyncThunk)("todos/fetchTodos",(async()=>await async function(e){return(await R().get(e,{headers:{"Content-Type":"application/json",Authorization:"token"}})).data}("http://localhost:8080/todos"))),C=(0,v.createSlice)({name:"todoList",initialState:{loading:!1,error:null,todos:[]},reducers:{addTodo:(e,t)=>({...e,todos:[...e.todos,t.payload.newTodo]})},extraReducers:e=>{e.addCase(k.pending,(e=>({...e,loading:!0,error:null}))).addCase(k.fulfilled,((e,{payload:t})=>({...e,error:null,loading:!1,todos:t}))).addCase(k.rejected,((e,{payload:t})=>({...e,error:t,loading:!1})))}}),{addTodo:A}=C.actions,T=C.reducer,E=f().button`
+`,f=require("react");var b=e.n(f);const y=require("@reduxjs/toolkit"),v=require("axios");var j=e.n(v);const w=e=>`http://localhost:8080${e}`,R=(0,y.createAsyncThunk)("todos/fetchTodos",(async()=>await async function(e){return(await j().get(e,{headers:{"Content-Type":"application/json"}})).data}(w("/todos")))),T=(0,y.createSlice)({name:"todoList",initialState:{loading:!1,error:null,todos:[]},reducers:{addTodo:(e,t)=>({...e,todos:[...e.todos,t.payload.newTodo]}),updateTodo(e,t){const o=t.payload.newTodo;return{...e,todos:e.todos.map((e=>e.id===o.id?o:e))}},removeTodo:(e,t)=>({...e,todos:e.todos.filter((e=>e.id!==t.payload))})},extraReducers:e=>{e.addCase(R.pending,(e=>({...e,loading:!0,error:null}))).addCase(R.fulfilled,((e,{payload:t})=>({...e,error:null,loading:!1,todos:t}))).addCase(R.rejected,((e,{payload:t})=>({...e,error:t,loading:!1})))}}),{addTodo:k,removeTodo:A,updateTodo:C}=T.actions,$=T.reducer,E=m().button`
   width: 110px;
   height: 32px;
   border-radius: 5px;
@@ -173,7 +173,7 @@
   &:disabled {
     background-color: ${({theme:e})=>e.colors.GRAY2};
   }
-`,S=f().button`
+`,D=m().button`
   width: 50px;
   height: 30px;
   cursor: pointer;
@@ -187,7 +187,7 @@
   &:active {
     filter: brightness(0.7);
   }
-`,q=f().button`
+`,I=m().button`
   width: 30px;
   height: 30px;
   cursor: pointer;
@@ -202,7 +202,7 @@
   &:active {
     filter: brightness(0.7);
   }
-`,I=f().textarea`
+`,S=m().textarea`
   width: 100%;
   height: 200px;
   resize: none;
@@ -220,15 +220,15 @@
   &:disabled {
     background-color: ${({theme:e})=>e.colors.WHITE};
   }
-`,Y=(0,m.atom)({key:"modal",default:{display:!1,message:"",buttons:[]}});function G(){const e=(0,m.useSetRecoilState)(Y);return{setContent:(t,o=[])=>{e({display:!0,message:t,buttons:o})},closeModal:()=>{e({display:!1,message:"",buttons:[]})}}}function D(){const{setContent:e,closeModal:o}=G(),r=(0,x.useQueryClient)(),[n,s]=(0,j.useState)(!1),i=(0,j.useRef)(null),[a,l]=(0,j.useState)({title:"",content:""}),d=(0,x.useMutation)(["postNewTodo"],(e=>async function(e,t){const o=localStorage.getItem("token");if(null===o)throw new Error("token error");return(await R().post("/todos",t,{headers:{"Content-Type":"application/json",Authorization:o}})).data.data}(0,{...e})),{onSuccess:()=>{r.invalidateQueries(["todos"])},onError:t=>{e(`${t.response.status}: ${t.response.statusText}\nmessage: ${t.response.data.message}`,[{name:"확인",handler:o}])}}),c=()=>{d.mutate(a),l({title:"",content:""}),s(!n)};return(0,j.useEffect)((()=>{i.current&&i.current.focus()}),[n]),(0,t.jsx)(M,{displayWriteBox:n,children:n?(0,t.jsxs)(t.Fragment,{children:[(0,t.jsxs)(z,{children:[(0,t.jsx)(B,{type:"text",placeholder:"제목",onChange:e=>l((t=>({...t,title:e.target.value}))),onKeyDown:e=>{if(e.nativeEvent.isComposing)return;const{key:t}=e;"Enter"===t&&c()},value:a.title,ref:i}),(0,t.jsx)(q,{onClick:c,children:"✓"})]}),(0,t.jsx)(I,{placeholder:"상세 내용을 입력하세요",onChange:e=>l((t=>({...t,content:e.target.value})))})]}):(0,t.jsxs)(z,{onClick:()=>s(!n),children:[(0,t.jsx)(B,{type:"text",placeholder:"무엇을 해야하나요?",value:a.title,disabled:!0}),(0,t.jsx)(q,{children:"+"})]})})}const M=f().div`
+`;function q(){const[e,o]=(0,f.useState)(!1),n=(0,f.useRef)(null),[i,r]=(0,f.useState)({title:"",content:""}),s=(0,h.useDispatch)(),l=()=>{(async()=>{const e=await async function(e,t){return(await j().post(e,t,{headers:{"Content-Type":"application/json"}})).data}(w("/todos"),{...i});s(k({newTodo:e})),r({title:"",content:""})})(),o(!e)};return(0,f.useEffect)((()=>{n.current&&n.current.focus()}),[e]),(0,t.jsx)(Y,{displayWriteBox:e,children:e?(0,t.jsxs)(t.Fragment,{children:[(0,t.jsxs)(F,{children:[(0,t.jsx)(P,{type:"text",placeholder:"제목",onChange:e=>r((t=>({...t,title:e.target.value}))),onKeyDown:e=>{if(e.nativeEvent.isComposing)return;const{key:t}=e;"Enter"===t&&l()},value:i.title,ref:n}),(0,t.jsx)(I,{onClick:l,children:"✓"})]}),(0,t.jsx)(S,{placeholder:"상세 내용을 입력하세요",onChange:e=>r((t=>({...t,content:e.target.value})))})]}):(0,t.jsxs)(F,{onClick:()=>o(!e),children:[(0,t.jsx)(P,{type:"text",placeholder:"무엇을 해야하나요?",value:i.title,disabled:!0}),(0,t.jsx)(I,{children:"+"})]})})}const Y=m().div`
   width: 100%;
   height: ${({displayWriteBox:e})=>e?"260px":"60px"};
   transition: all 0.3s ease;
-`,z=f().div`
+`,F=m().div`
   display: flex;
   align-items: center;
   padding-right: 10px;
-`,B=f().input`
+`,P=m().input`
   width: 100%;
   height: 60px;
   border: 0px;
@@ -244,7 +244,7 @@
   &:disabled {
     background-color: ${({theme:e})=>e.colors.WHITE};
   }
-`,P=y().memo((function({currentTodo:e}){const o=(0,x.useQueryClient)(),[r,n]=(0,j.useState)({title:e.title,content:e.content}),[s,i]=(0,j.useState)(!1),[a,l]=(0,j.useState)(!1),[d,c]=(0,j.useState)(!1),{setContent:h,closeModal:p}=G(),u=(0,x.useMutation)("updateTodo",(t=>async function(e,t){const o=localStorage.getItem("token");if(null===o)throw new Error("token error");return(await R().put(e,t,{headers:{"Content-Type":"application/json",Authorization:o}})).data.data}(`/todos/${e.id}`,t)),{onSuccess:()=>{o.invalidateQueries(["todos"])},onError:e=>{h(`${e.response.status}: ${e.response.statusText}\nmessage: ${e.response.data.message}`,[{name:"확인",handler:p}])}}),m=(0,x.useMutation)("deleteTodo",(()=>async function(e){const t=localStorage.getItem("token");if(null===t)throw new Error("token error");return(await R().delete(e,{headers:{"Content-Type":"application/json",Authorization:t}})).data.data}(`/todos/${e.id}`)),{onSuccess:()=>{o.invalidateQueries(["todos"])},onError:e=>{h(`${e.response.status}: ${e.response.statusText}\nmessage: ${e.response.data.message}`,[{name:"확인",handler:p}])}}),g=()=>{i(!1),l(!1),u.mutate(r)},f=()=>{m.mutate(),p()};return(0,j.useEffect)((()=>{let e;return a?c(!0):e=setTimeout((()=>c(!1)),200),()=>{clearTimeout(e)}}),[a]),(0,t.jsxs)(F,{displayWriteBox:a,children:[s?(0,t.jsxs)(L,{children:[(0,t.jsx)(H,{type:"text",placeholder:"",onChange:e=>n((t=>({...t,title:e.target.value}))),onKeyDown:e=>{if(e.nativeEvent.isComposing)return;const{key:t}=e;"Enter"===t&&g()},value:r.title,autoFocus:!0}),(0,t.jsx)(q,{onClick:g,children:"✓"})]}):(0,t.jsxs)(L,{children:[(0,t.jsx)(O,{onClick:()=>l(!a),children:(0,t.jsx)(K,{children:e.title})}),(0,t.jsxs)(_,{children:[(0,t.jsx)(S,{onClick:()=>(i(!0),void l(!0)),isDelete:!1,children:"수정"}),(0,t.jsx)(S,{onClick:()=>{h("삭제 하시겠습니까?",[{name:"취소",handler:p},{name:"삭제",handler:f}])},isDelete:!0,children:"삭제"})]})]}),(0,t.jsx)(W,{displayWriteBox:a,children:d&&(0,t.jsx)(I,{placeholder:"",onChange:e=>n((t=>({...t,content:e.target.value}))),value:r.content,disabled:!s})})]})})),F=f().div`
+`,B=(0,y.createSlice)({name:"modalInfo",initialState:{display:!1,message:"",buttons:[]},reducers:{addContent:(e,t)=>({...t.payload})}}),{addContent:G}=B.actions,M=B.reducer;function W(){const e=(0,h.useDispatch)();return{setContent:(t,o=[])=>{e(G({display:!0,message:t,buttons:o}))},closeModal:()=>{e(G({display:!1,message:"",buttons:[]}))}}}const H=b().memo((function({currentTodo:e}){const[o,n]=(0,f.useState)({title:e.title,content:e.content}),[i,r]=(0,f.useState)(!1),[s,l]=(0,f.useState)(!1),[a,d]=(0,f.useState)(!1),{setContent:c,closeModal:p}=W(),u=(0,h.useDispatch)(),x=async()=>{r(!1),l(!1);const t=await async function(e,t){return(await j().put(e,t,{headers:{"Content-Type":"application/json"}})).data}(w(`/todos/${e.id}`),o);u(C({newTodo:t}))},m=()=>{u(A(e.id)),p()};return(0,f.useEffect)((()=>{let e;return s?d(!0):e=setTimeout((()=>d(!1)),200),()=>{clearTimeout(e)}}),[s]),(0,t.jsxs)(O,{displayWriteBox:s,children:[i?(0,t.jsxs)(_,{children:[(0,t.jsx)(L,{type:"text",placeholder:"",onChange:e=>n((t=>({...t,title:e.target.value}))),onKeyDown:e=>{if(e.nativeEvent.isComposing)return;const{key:t}=e;"Enter"===t&&x()},value:o.title,autoFocus:!0}),(0,t.jsx)(I,{onClick:x,children:"✓"})]}):(0,t.jsxs)(_,{children:[(0,t.jsx)(N,{onClick:()=>l(!s),children:(0,t.jsx)(J,{children:e.title})}),(0,t.jsxs)(K,{children:[(0,t.jsx)(D,{onClick:()=>(r(!0),void l(!0)),isDelete:!1,children:"수정"}),(0,t.jsx)(D,{onClick:()=>{c("삭제 하시겠습니까?",[{name:"취소",handler:p},{name:"삭제",handler:m}])},isDelete:!0,children:"삭제"})]})]}),(0,t.jsx)(z,{displayWriteBox:s,children:a&&(0,t.jsx)(S,{placeholder:"",onChange:e=>n((t=>({...t,content:e.target.value}))),value:o.content,disabled:!i})})]})})),O=m().div`
   width: 100%;
   height: ${({displayWriteBox:e})=>e?"255px":"55px"};
   transition: all 0.3s ease;
@@ -253,16 +253,16 @@
   justify-content: center;
   align-items: center;
   border-top: 1px solid ${({theme:e})=>e.colors.GRAY3};
-`,L=f().div`
+`,_=m().div`
   display: flex;
   width: 95%;
   height: 54px;
   align-items: center;
-`,W=f().div`
+`,z=m().div`
   width: 100%;
   height: ${({displayWriteBox:e})=>e?"200px":"0px"};
   transition: all 0.3s ease;
-`,H=f().input`
+`,L=m().input`
   width: 100%;
   height: 54px;
   border: 0px;
@@ -274,27 +274,27 @@
     user-select: none;
     color: ${({theme:e})=>e.colors.GRAY4};
   }
-`,_=f().div`
+`,K=m().div`
   width: 100px;
   display: flex;
   align-items: center;
-`,O=f().button`
+`,N=m().button`
   flex: 1;
   border: 0px;
   background-color: ${({theme:e})=>e.colors.WHITE};
   text-align: left;
   cursor: pointer;
-`,K=f().div`
+`,J=m().div`
   color: ${({theme:e})=>e.colors.BLACK};
   font-size: 25px;
-`,N=require("react-loading");var Q=e.n(N);function J(){return(0,t.jsx)(U,{children:(0,t.jsx)(Q(),{type:"spin",color:"#5A85E3"})})}const U=f().div`
+`,U=require("react-loading");var Q=e.n(U);function V(){return(0,t.jsx)(X,{children:(0,t.jsx)(Q(),{type:"spin",color:"#5A85E3"})})}const X=m().div`
   width: 20px;
   height: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
-`,V=(0,j.createContext)(null),X=V,Z=y().memo((function(){const{setContent:e,closeModal:o}=G(),r=(0,h.useDispatch)();(e=>{const t=(0,j.useContext)(V);t&&(t.done||t.promises.push(Promise.resolve(r(k()))))})();const{todos:n,loading:s}=(0,h.useSelector)((e=>e.todos));return(0,j.useEffect)((()=>{if(!n||0===n.length)try{r(k())}catch(t){e(`${t}`,[{name:"Confirm",handler:o}])}}),[r,n]),(0,t.jsxs)(te,{children:[(0,t.jsx)(oe,{children:"Todo List"}),(0,t.jsxs)(ee,{children:[(0,t.jsx)(D,{}),s?(0,t.jsx)(J,{}):n&&n.map((e=>(0,t.jsx)(P,{currentTodo:e},e.id)))]})]})})),ee=f().div`
+`,Z=(0,f.createContext)(null),ee=Z,te=b().memo((function(){const{setContent:e,closeModal:o}=W(),n=(0,h.useDispatch)();(e=>{const t=(0,f.useContext)(Z);t&&(t.done||t.promises.push(Promise.resolve(n(R()))))})();const{todos:i,loading:r}=(0,h.useSelector)((e=>e.todos));return(0,f.useEffect)((()=>{if(!i||0===i.length)try{n(R())}catch(t){e(`${t}`,[{name:"Confirm",handler:o}])}}),[n,i]),(0,t.jsxs)(ne,{children:[(0,t.jsx)(ie,{children:"Todo List"}),(0,t.jsxs)(oe,{children:[(0,t.jsx)(q,{}),r?(0,t.jsx)(V,{}):i&&i.map((e=>(0,t.jsx)(H,{currentTodo:e},e.id)))]})]})})),oe=m().div`
   width: 100%;
   height: min-content;
   background-color: ${({theme:e})=>e.colors.WHITE};
@@ -303,33 +303,33 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`,te=f().section`
+`,ne=m().section`
   width: 700px;
   padding-bottom: 50px;
   margin-top: 30px;
-`,oe=f().header`
+`,ie=m().header`
   font-size: 40px;
   width: 700px;
   height: 60px;
   text-align: center;
   color: ${({theme:e})=>e.colors.PRIMARY};
-`,re=f().div`
+`,re=m().div`
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-`,ne=f().div`
+`,se=m().div`
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
-`;function se(){return(0,t.jsxs)(ne,{children:[(0,t.jsxs)(ae,{children:[(0,t.jsx)(ie,{children:"LOGO"}),(0,t.jsx)(p.Link,{to:"/auth/login",children:(0,t.jsx)(E,{children:"Login"})})]}),(0,t.jsx)(Z,{})]})}const ie=f().div`
+`;function le(){return(0,t.jsxs)(se,{children:[(0,t.jsxs)(de,{children:[(0,t.jsx)(ae,{children:"LOGO"}),(0,t.jsx)(p.Link,{to:"/about",children:(0,t.jsx)(E,{children:"About"})})]}),(0,t.jsx)(te,{})]})}const ae=m().div`
   color: ${({theme:e})=>e.colors.WHITE};
   font-size: 30px;
   font-weight: 500;
-`,ae=f().nav`
+`,de=m().nav`
   width: 100%;
   height: 60px;
   box-shadow: rgb(0 0 0 / 20%) 0px 1px 5px 1px;
@@ -339,100 +339,7 @@
   align-items: center;
   padding-left: 50px;
   padding-right: 20px;
-`,le=require("react-hook-form"),de=require("yup"),ce=require("@hookform/resolvers/yup"),he=f().input`
-  width: 80%;
-  height: 30px;
-  border-radius: 5px;
-  border: 1px solid ${({theme:e})=>e.colors.GRAY2};
-  color: ${({theme:e})=>e.colors.BLACK};
-  padding: 7px 10px;
-  font-size: 14px;
-  margin-top: 5px;
-  &:focus {
-    outline-color: ${({theme:e})=>e.colors.GRAY1};
-  }
-  &::placeholder {
-    user-select: none;
-  }
-  &:disabled {
-    background-color: ${({theme:e})=>e.colors.GRAY3};
-    -webkit-box-shadow: 0 0 0 30px ${({theme:e})=>e.colors.GRAY3} inset !important;
-    box-shadow: 0 0 0 30px ${({theme:e})=>e.colors.GRAY3} inset !important;
-  }
-`,pe=f().div`
-  width: 500px;
-  height: min-content;
-  display: flex;
-  flex-direction: column;
-  border: 2px solid ${({theme:e})=>e.colors.PRIMARY_DARK};
-  border-radius: 15px;
-`,ue=f().form`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  padding-top: 30px;
-  padding-bottom: 20px;
-  button {
-    margin-top: 10px;
-  }
-`,xe=f().div`
-  width: 80%;
-  height: 35px;
-  text-align: left;
-  font-size: 12px;
-  padding: 8px 5px;
-  div {
-    color: ${({theme:e})=>e.colors.RED};
-  }
-`,me=f().div`
-  width: 80%;
-  text-align: left;
-  font-size: 15px;
-  padding: 0px 5px;
-  color: ${({theme:e})=>e.colors.LIGHT_BLACK};
-`,ge=f().div`
-  width: 100%;
-  font-size: 24px;
-  font-weight: 600;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px 0px;
-  border-bottom: 1px solid ${({theme:e})=>e.colors.PRIMARY_LIGHT};
-`,fe=de.object({email:de.string().required("이메일을 입력하세요.").email("이메일 형식에 맞지 않습니다."),password:de.string().required("비밀번호를 입력하세요.")}).required();function be(){const[e,o]=(0,j.useState)(!0),r=(0,p.useNavigate)(),{register:n,handleSubmit:s,formState:{errors:i}}=(0,le.useForm)({resolver:(0,ce.yupResolver)(fe),mode:"onBlur"}),{setContent:a,closeModal:l}=G(),[d,c]=(0,j.useState)({email:"",password:""});(0,j.useEffect)((()=>{""!==d.email&&""!==d.password&&o(!1)}),[d]);const h=e=>{const{target:t}=e;c({...d,[t.name]:t.value})};return(0,t.jsxs)(pe,{children:[(0,t.jsx)(ge,{children:"로그인"}),(0,t.jsxs)(ue,{onSubmit:s((async()=>{try{e=(await $("/users/login",{email:d.email,password:d.password})).data.token,localStorage.setItem("token",e),l(),r("/")}catch(e){a(`${e.response.statusText}.`,[{name:"확인",handler:l}])}var e})),children:[(0,t.jsx)(me,{children:"이메일"}),(0,t.jsx)(he,{type:"text",...n("email"),placeholder:"이메일",onChange:h}),(0,t.jsx)(xe,{children:i.email&&(0,t.jsx)("div",{children:i.email.message})}),(0,t.jsx)(me,{children:"비밀번호"}),(0,t.jsx)(he,{type:"password",...n("password"),placeholder:"비밀번호",onChange:h}),(0,t.jsx)(xe,{children:i.password&&(0,t.jsx)("div",{children:i.password.message})}),(0,t.jsx)(E,{type:"submit",disabled:e,children:"로그인"})]}),(0,t.jsxs)(je,{children:[(0,t.jsx)(ye,{children:"계정이 없으세요?"}),(0,t.jsx)(p.Link,{to:"/auth/signup",children:(0,t.jsx)(ve,{children:"회원가입"})})]})]})}const je=f().div`
-  width: 100%;
-  height: 20px;
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`,ye=f().div`
-  width: 100px;
-  height: 20px;
-  text-align: center;
-  line-height: 20px;
-  color: ${({theme:e})=>e.colors.GRAY1};
-  font-size: 12px;
-`,ve=f().button`
-  width: 60px;
-  height: 20px;
-  text-align: center;
-  color: ${({theme:e})=>e.colors.GRAY1};
-  font-size: 12px;
-  background-color: ${({theme:e})=>e.colors.WHITE};
-  border: 0px;
-  border-radius: 5px;
-  &:hover {
-    background-color: ${({theme:e})=>e.colors.GRAY4};
-  }
-  &:active {
-    filter: brightness(0.7);
-  }
-`;function we(){return(0,t.jsx)(re,{children:(0,t.jsx)(be,{})})}const Re=de.object({email:de.string().required("이메일을 입력하세요.").email("이메일 형식에 맞지 않습니다."),password:de.string().required("비밀번호를 입력하세요.").min(8,"8글자 이상 입력하세요."),passwordConfirm:de.string().required("비밀번호 확인을 입력하세요.").oneOf([de.ref("password"),null],"비밀번호가 일치하지 않습니다.")}).required();function $e(){const[e,o]=(0,j.useState)(!0),r=(0,p.useNavigate)(),{register:n,handleSubmit:s,formState:{errors:i}}=(0,le.useForm)({resolver:(0,ce.yupResolver)(Re),mode:"onBlur"}),{setContent:a,closeModal:l}=G(),[d,c]=(0,j.useState)({email:"",password:"",passwordConfirm:""});(0,j.useEffect)((()=>{""!==d.email&&""!==d.password&&""!==d.passwordConfirm&&o(!1)}),[d]);const h=e=>{const{target:t}=e;c({...d,[t.name]:t.value})};return(0,t.jsxs)(pe,{children:[(0,t.jsx)(ge,{children:"회원가입"}),(0,t.jsxs)(ue,{onSubmit:s((async()=>{try{const e=await $("/users/create",{email:d.email,password:d.password});a(`${e.data.message}. 바로 로그인 하시겠습니까?`,[{name:"취소",handler:l},{name:"확인",handler:()=>{return t=e.data.token,localStorage.setItem("token",t),l(),void r("/");var t}}])}catch(e){a(`${e.response.statusText}.`,[{name:"확인",handler:l}])}})),children:[(0,t.jsx)(me,{children:"이메일"}),(0,t.jsx)(he,{type:"text",...n("email"),placeholder:"이메일",onChange:h}),(0,t.jsx)(xe,{children:i.email&&(0,t.jsx)("div",{children:i.email.message})}),(0,t.jsx)(me,{children:"비밀번호"}),(0,t.jsx)(he,{type:"password",...n("password"),placeholder:"비밀번호",onChange:h}),(0,t.jsx)(xe,{children:i.password&&(0,t.jsx)("div",{children:i.password.message})}),(0,t.jsx)(me,{children:"비밀번호 확인"}),(0,t.jsx)(he,{type:"password",...n("passwordConfirm"),placeholder:"비밀번호 확인",onChange:h}),(0,t.jsx)(xe,{children:i.passwordConfirm&&(0,t.jsx)("div",{children:i.passwordConfirm.message})}),(0,t.jsx)(E,{type:"submit",disabled:e,children:"회원가입"})]})]})}function ke(){return(0,t.jsx)(re,{children:(0,t.jsx)($e,{})})}const Ce={colors:{PRIMARY:"#5A85E3",PRIMARY_DARK:"#1F59D7",PRIMARY_LIGHT:"#B5C8F3",OFF_WHITE:"#F7F4FD",WHITE:"#FFFFFF",BLACK:"#333333",GRAY1:"#888888",GRAY2:"#BBBBBB",GRAY3:"#D7D7D7",GRAY4:"#EEEEEE",GRAY5:"#F5F5F5",RED:"#C83A68",LIGHT_BLACK:"#464646",POINT_COLOR:"#C75DE0",BACKGROUND:"#f8f9f9"}};function Ae(){const e=(0,m.useRecoilValue)(Y),{closeModal:o}=G();return(0,t.jsxs)(Ee,{isDisplay:e.display,children:[(0,t.jsx)(Te,{isDisplay:e.display,onClick:o}),e.display&&(0,t.jsxs)(Se,{children:[(0,t.jsx)(qe,{children:e.message}),(0,t.jsx)(Ie,{children:e.buttons.map((e=>(0,t.jsx)(E,{onClick:e.handler,children:e.name},(()=>{const e=Math.random();return String(e)})()+e.name)))})]})]})}const Te=f().div`
+`;function ce(){return(0,t.jsx)(re,{children:(0,t.jsx)("div",{children:"About"})})}const he={colors:{PRIMARY:"#5A85E3",PRIMARY_DARK:"#1F59D7",PRIMARY_LIGHT:"#B5C8F3",OFF_WHITE:"#F7F4FD",WHITE:"#FFFFFF",BLACK:"#333333",GRAY1:"#888888",GRAY2:"#BBBBBB",GRAY3:"#D7D7D7",GRAY4:"#EEEEEE",GRAY5:"#F5F5F5",RED:"#C83A68",LIGHT_BLACK:"#464646",POINT_COLOR:"#C75DE0",BACKGROUND:"#f8f9f9"}};function pe(){const{display:e,message:o,buttons:n}=(0,h.useSelector)((e=>e.modalInfo)),{closeModal:i}=W();return(0,t.jsxs)(xe,{isDisplay:e,children:[(0,t.jsx)(ue,{isDisplay:e,onClick:i}),e&&(0,t.jsxs)(me,{children:[(0,t.jsx)(ge,{children:o}),(0,t.jsx)(fe,{children:n.map((e=>(0,t.jsx)(E,{onClick:e.handler,children:e.name},(()=>{const e=Math.random();return String(e)})()+e.name)))})]})]})}const ue=m().div`
   width: 100%;
   height: 100%;
   position: fixed;
@@ -443,7 +350,7 @@
   background-color: ${({theme:e})=>e.colors.BLACK};
   opacity: 0.8;
   overflow: hidden;
-`,Ee=f().div`
+`,xe=m().div`
   width: 100%;
   height: 100%;
   position: fixed;
@@ -451,7 +358,7 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
-`,Se=f().div`
+`,me=m().div`
   width: min-content;
   height: min-content;
   position: relative;
@@ -463,21 +370,21 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`,qe=f().div`
+`,ge=m().div`
   width: min-content;
   line-height: 30px;
   margin-bottom: 20px;
   height: max-content;
   text-align: center;
   white-space: pre;
-`,Ie=f().div`
+`,fe=m().div`
   display: flex;
   width: 300px;
   height: 60px;
   justify-content: space-evenly;
   align-items: center;
-`,Ye=f().div`
+`,be=m().div`
   height: 100%;
   width: 100%;
   position: absolute;
-`,Ge=function(){const e=new x.QueryClient;return(0,t.jsx)(u.ThemeProvider,{theme:Ce,children:(0,t.jsx)(m.RecoilRoot,{children:(0,t.jsxs)(x.QueryClientProvider,{client:e,children:[(0,t.jsx)(u.Global,{styles:b}),(0,t.jsx)(Ye,{children:(0,t.jsxs)(p.Routes,{children:[(0,t.jsx)(p.Route,{path:"/auth/login",element:(0,t.jsx)(we,{})}),(0,t.jsx)(p.Route,{path:"/auth/signup",element:(0,t.jsx)(ke,{})}),(0,t.jsx)(p.Route,{path:"/",element:(0,t.jsx)(se,{})})]})}),(0,t.jsx)(Ae,{})]})})})},De=(0,v.combineReducers)({todos:T}),Me=JSON.parse(c().readFileSync(l().resolve("./build/asset-manifest.json"),"utf8")),ze=s()(),Be=s().static(l().resolve("./build"),{index:!1});ze.use(Be),ze.use((async(e,o)=>{const n={done:!1,promises:[]},s=(0,v.configureStore)({reducer:De,preloadedState:{todos:undefined}});const a=(0,t.jsx)(X.Provider,{value:n,children:(0,t.jsx)(h.Provider,{store:s,children:(0,t.jsx)(i.StaticRouter,{location:e.url,children:(0,t.jsx)(Ge,{})})})});r().renderToStaticMarkup(a);try{await Promise.all(n.promises)}catch(e){return o.status(500)}n.done=!0;const l=r().renderToString(a),d=`<script>__PRELOADED_STATE__=${JSON.stringify(s.getState().todos).replace(/</g,"\\u003c")}<\/script>`;return o.send(((e,t)=>`<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><link rel="shortcut icon" href="/favicon.ico" /><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/><meta name="theme-color" content="#000000" /><title>React App</title></head><body><div id="root">${e}</div>${t}<script src="${Me.files["main.js"]}"><\/script></body></html>`)(l,d))})),ze.listen(3e3,(()=>{console.log("Now listening on port 3000")}))})();
+`,ye=function(){return(0,t.jsxs)(u.ThemeProvider,{theme:he,children:[(0,t.jsx)(u.Global,{styles:g}),(0,t.jsx)(be,{children:(0,t.jsxs)(p.Routes,{children:[(0,t.jsx)(p.Route,{path:"/about",element:(0,t.jsx)(ce,{})}),(0,t.jsx)(p.Route,{path:"/",element:(0,t.jsx)(le,{})})]})}),(0,t.jsx)(pe,{})]})},ve=(0,y.combineReducers)({todos:$,modalInfo:M}),je=JSON.parse(c().readFileSync(a().resolve("./build/asset-manifest.json"),"utf8")),we=r()(),Re=r().static(a().resolve("./build"),{index:!1});we.use(Re),we.use((async(e,o)=>{const i={done:!1,promises:[]},r=(0,y.configureStore)({reducer:ve,preloadedState:{todos:undefined}});const l=(0,t.jsx)(ee.Provider,{value:i,children:(0,t.jsx)(h.Provider,{store:r,children:(0,t.jsx)(s.StaticRouter,{location:e.url,children:(0,t.jsx)(ye,{})})})});n().renderToStaticMarkup(l);try{await Promise.all(i.promises)}catch(e){return o.status(500)}i.done=!0;const a=n().renderToString(l),d=`<script>__PRELOADED_STATE__=${JSON.stringify(r.getState().todos).replace(/</g,"\\u003c")}<\/script>`;return o.send(((e,t)=>`<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><link rel="shortcut icon" href="/favicon.ico" /><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/><meta name="theme-color" content="#000000" /><title>React App</title></head><body><div id="root">${e}</div>${t}<script src="${je.files["main.js"]}"><\/script></body></html>`)(a,d))})),we.listen(3e3,(()=>{console.log("Now listening on port 3000")}))})();

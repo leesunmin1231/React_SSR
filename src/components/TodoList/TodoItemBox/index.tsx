@@ -5,8 +5,9 @@ import { SmallButton, EmojiButton, WriteDetail } from '../../../styles/common';
 import type { TodoResponseInterface } from '../../../module/todos';
 import useModal from '../../../hooks/useModal';
 import type { AppDispatch } from '../../../module/store';
-import { addTodo, removeTodo } from '../../../module/todos';
+import { updateTodo, removeTodo } from '../../../module/todos';
 import { httpPut } from '../../../util/http';
+import { getApiUrl } from '../../../util/getApiUrl';
 
 function TodoItemBox({ currentTodo }: { currentTodo: TodoResponseInterface }) {
   const [newTodo, setNewTodo] = useState({ title: currentTodo.title, content: currentTodo.content });
@@ -19,8 +20,8 @@ function TodoItemBox({ currentTodo }: { currentTodo: TodoResponseInterface }) {
   const handleTodoSubmit = async () => {
     setEditing(false);
     setToggleContentBox(false);
-    const response = await httpPut(`/todos/${currentTodo.id}`, newTodo);
-    dispatch(addTodo({ newTodo: response }));
+    const response = await httpPut(getApiUrl(`/todos/${currentTodo.id}`), newTodo);
+    dispatch(updateTodo({ newTodo: response }));
   };
   const handleKeyDown = (e: KeyboardEvent) => {
     if (e.nativeEvent.isComposing) return;

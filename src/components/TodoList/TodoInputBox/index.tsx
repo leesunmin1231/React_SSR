@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { EmojiButton, WriteDetail } from '../../../styles/common';
 import { httpPost } from '../../../util/http';
 import { addTodo } from '../../../module/todos';
+import { getApiUrl } from '../../../util/getApiUrl';
 
 export default function TodoInputBox() {
   const [toggleWriteBox, setToggleWriteBox] = useState(false);
@@ -11,7 +12,7 @@ export default function TodoInputBox() {
   const [newTodo, setNewTodo] = useState({ title: '', content: '' });
   const dispatch = useDispatch();
   const createNewTodo = async () => {
-    const response = await httpPost('/todos', { ...newTodo });
+    const response = await httpPost(getApiUrl('/todos'), { ...newTodo });
     dispatch(addTodo({ newTodo: response }));
     setNewTodo({ title: '', content: '' });
   };
