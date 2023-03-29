@@ -1,14 +1,14 @@
-import { useSetRecoilState } from 'recoil';
-import { modalContent } from '../atom';
-import { buttonType } from '../types/Modal';
+import { useDispatch } from 'react-redux';
+import { buttonType, addContent } from '../module/modalInfo';
+import { AppDispatch } from '../module/store';
 
 export default function useModal() {
-  const setModalContent = useSetRecoilState(modalContent);
+  const dispatch = useDispatch<AppDispatch>();
   const setContent = (msg: string, buttonList: buttonType[] = []) => {
-    setModalContent({ display: true, message: msg, buttons: buttonList });
+    dispatch(addContent({ display: true, message: msg, buttons: buttonList }));
   };
   const closeModal = () => {
-    setModalContent({ display: false, message: '', buttons: [] });
+    dispatch(addContent({ display: false, message: '', buttons: [] }));
   };
   return { setContent, closeModal };
 }

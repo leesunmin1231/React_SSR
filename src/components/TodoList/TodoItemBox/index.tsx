@@ -1,51 +1,26 @@
 import React, { useState, KeyboardEvent, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { useMutation, useQueryClient } from 'react-query';
+import { useDispatch } from 'react-redux';
 import { SmallButton, EmojiButton, WriteDetail } from '../../../styles/common';
-import type todoResponseType from '../../../types/TodoResponse';
-import type todoItemType from '../../../types/TodoItem';
-import type errorResponseType from '../../../types/ErrorResponse';
+import type { TodoResponseInterface } from '../../../module/todos';
 import useModal from '../../../hooks/useModal';
-import { httpDelete, httpPut } from '../../../util/http';
+import type { AppDispatch } from '../../../module/store';
+import { addTodo, removeTodo } from '../../../module/todos';
+import { httpPut } from '../../../util/http';
 
-function TodoItemBox({ currentTodo }: { currentTodo: todoResponseType }) {
-  const queryClient = useQueryClient();
+function TodoItemBox({ currentTodo }: { currentTodo: TodoResponseInterface }) {
   const [newTodo, setNewTodo] = useState({ title: currentTodo.title, content: currentTodo.content });
   const [editing, setEditing] = useState(false);
   const [toggleContentBox, setToggleContentBox] = useState(false);
   const [openContentBox, setOpenContentBox] = useState(false);
   const { setContent, closeModal } = useModal();
+  const dispatch = useDispatch<AppDispatch>();
 
-  const updateTodoMutate = useMutation(
-    'updateTodo',
-    (todo: todoItemType) => httpPut(`/todos/${currentTodo.id}`, todo),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(['todos']);
-      },
-      onError: (error: errorResponseType) => {
-        setContent(`${error.response.status}: ${error.response.statusText}\nmessage: ${error.response.data.message}`, [
-          { name: '확인', handler: closeModal },
-        ]);
-      },
-    }
-  );
-
-  const deleteTodoMutate = useMutation('deleteTodo', () => httpDelete(`/todos/${currentTodo.id}`), {
-    onSuccess: () => {
-      queryClient.invalidateQueries(['todos']);
-    },
-    onError: (error: errorResponseType) => {
-      setContent(`${error.response.status}: ${error.response.statusText}\nmessage: ${error.response.data.message}`, [
-        { name: '확인', handler: closeModal },
-      ]);
-    },
-  });
-
-  const handleTodoSubmit = () => {
+  const handleTodoSubmit = async () => {
     setEditing(false);
     setToggleContentBox(false);
-    updateTodoMutate.mutate(newTodo);
+    const response = await httpPut(`/todos/${currentTodo.id}`, newTodo);
+    dispatch(addTodo({ newTodo: response }));
   };
   const handleKeyDown = (e: KeyboardEvent) => {
     if (e.nativeEvent.isComposing) return;
@@ -60,7 +35,7 @@ function TodoItemBox({ currentTodo }: { currentTodo: todoResponseType }) {
     setToggleContentBox(true);
   };
   const deleteTodo = () => {
-    deleteTodoMutate.mutate();
+    dispatch(removeTodo(currentTodo.id));
     closeModal();
   };
   const deleteHandler = () => {

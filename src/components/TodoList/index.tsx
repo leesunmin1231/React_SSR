@@ -8,7 +8,7 @@ import TodoInputBox from './TodoInputBox';
 import TodoItemBox from './TodoItemBox';
 import Loading from '../Loading';
 import useModal from '../../hooks/useModal';
-import todoResponseType from '../../types/TodoResponse';
+import type { TodoResponseInterface } from '../../module/todos';
 import { usePreloader } from '../../lib/PreloaderContext';
 
 function TodoList() {
@@ -32,7 +32,7 @@ function TodoList() {
         {loading ? (
           <Loading />
         ) : (
-          todos && todos.map((item: todoResponseType) => <TodoItemBox key={item.id} currentTodo={item} />)
+          todos && todos.map((item: TodoResponseInterface) => <TodoItemBox key={item.id} currentTodo={item} />)
         )}
       </ListBox>
     </TodoSection>

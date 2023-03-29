@@ -6,7 +6,7 @@ interface FetchError {
   errorMessage: string;
 }
 
-interface TodoResponseInterface {
+export interface TodoResponseInterface {
   title: string;
   content: string;
   id: string;
@@ -41,6 +41,12 @@ export const todoList = createSlice({
         todos: [...state.todos, action.payload.newTodo],
       };
     },
+    removeTodo(state, action: PayloadAction<string>) {
+      return {
+        ...state,
+        todos: state.todos.filter((todo) => todo.id !== action.payload),
+      };
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -62,5 +68,5 @@ export const todoList = createSlice({
   },
 });
 
-export const { addTodo } = todoList.actions;
+export const { addTodo, removeTodo } = todoList.actions;
 export default todoList.reducer;

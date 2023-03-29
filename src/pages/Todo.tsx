@@ -10,8 +10,8 @@ export default function Todo() {
     <TodoFrame>
       <TopBar>
         <Title>LOGO</Title>
-        <Link to="/auth/login">
-          <MiddleButton>Login</MiddleButton>
+        <Link to="/about">
+          <MiddleButton>About</MiddleButton>
         </Link>
       </TopBar>
       <TodoList />

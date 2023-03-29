@@ -1,31 +1,18 @@
 import React, { KeyboardEvent, useState, useRef, useEffect, RefObject } from 'react';
 import styled from '@emotion/styled';
-import { useMutation, useQueryClient } from 'react-query';
-import type todoItemType from '../../../types/TodoItem';
-import type errorResponseType from '../../../types/ErrorResponse';
+import { useDispatch } from 'react-redux';
 import { EmojiButton, WriteDetail } from '../../../styles/common';
 import { httpPost } from '../../../util/http';
-import useModal from '../../../hooks/useModal';
+import { addTodo } from '../../../module/todos';
 
 export default function TodoInputBox() {
-  const { setContent, closeModal } = useModal();
-  const queryClient = useQueryClient();
   const [toggleWriteBox, setToggleWriteBox] = useState(false);
   const titleInputRef: RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
   const [newTodo, setNewTodo] = useState({ title: '', content: '' });
-
-  const postNewTodoMutate = useMutation(['postNewTodo'], (todo: todoItemType) => httpPost('/todos', { ...todo }), {
-    onSuccess: () => {
-      queryClient.invalidateQueries(['todos']);
-    },
-    onError: (error: errorResponseType) => {
-      setContent(`${error.response.status}: ${error.response.statusText}\nmessage: ${error.response.data.message}`, [
-        { name: '확인', handler: closeModal },
-      ]);
-    },
-  });
-  const createNewTodo = () => {
-    postNewTodoMutate.mutate(newTodo);
+  const dispatch = useDispatch();
+  const createNewTodo = async () => {
+    const response = await httpPost('/todos', { ...newTodo });
+    dispatch(addTodo({ newTodo: response }));
     setNewTodo({ title: '', content: '' });
   };
 

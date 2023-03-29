@@ -1,22 +1,23 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { useRecoilValue } from 'recoil';
-import { modalContent } from '../atom';
+import { useSelector } from 'react-redux';
 import useModal from '../hooks/useModal';
 import { MiddleButton } from '../styles/common';
 import { getListKey } from '../util/getListKey';
+import { ModalInfo } from '../module/modalInfo';
+import { ReducerType } from '../module/rootReducer';
 
 export default function Modal() {
-  const content = useRecoilValue(modalContent);
+  const { display, message, buttons } = useSelector<ReducerType, ModalInfo>((state) => state.modalInfo);
   const { closeModal } = useModal();
   return (
-    <Wrapper isDisplay={content.display}>
-      <BackGround isDisplay={content.display} onClick={closeModal} />
-      {content.display && (
+    <Wrapper isDisplay={display}>
+      <BackGround isDisplay={display} onClick={closeModal} />
+      {display && (
         <ModalBox>
-          <Message>{content.message}</Message>
+          <Message>{message}</Message>
           <ButtonWrapper>
-            {content.buttons.map((btn) => (
+            {buttons.map((btn) => (
               <MiddleButton key={getListKey() + btn.name} onClick={btn.handler}>
                 {btn.name}
               </MiddleButton>
