@@ -25,28 +25,11 @@ declare global {
 
 const manifest = JSON.parse(fs.readFileSync(path.resolve('./build/asset-manifest.json'), 'utf8'));
 
-const createPage = (root: string, stateScript: string) => `
-  <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="utf-8" />
-      <link rel="shortcut icon" href="/favicon.ico" />
-      <meta
-        name="viewport"
-        content="width=device-width,initial-scale=1,shrink-to-fit=no"
-      />
-      <meta name="theme-color" content="#000000" />
-      <title>React App</title>
-    </head>
-    <body>
-      <div id="root">
-        ${root}
-      </div>
-      ${stateScript}
-      <script src="${manifest.files['main.js']}"></script>
-    </body>
-  </html>
-  `;
+const htmlHead =
+  '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><link rel="shortcut icon" href="/favicon.ico" /><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/><meta name="theme-color" content="#000000" /><title>React App</title></head>';
+
+const createPage = (root: string, stateScript: string) =>
+  `${htmlHead}<body><div id="root">${root}</div>${stateScript}<script src="${manifest.files['main.js']}"></script></body></html>`;
 
 const app = express();
 
