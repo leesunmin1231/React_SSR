@@ -1,33 +1,24 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Global, ThemeProvider } from '@emotion/react';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { RecoilRoot } from 'recoil';
 import styled from '@emotion/styled';
 import globalStyle from './styles/global';
 import Todo from './pages/Todo';
-import Login from './pages/Login';
-import SignUp from './pages/SignUp';
+import About from './pages/About';
 import AppTheme from './styles/theme';
 import Modal from './components/Modal';
 
 function App() {
-  const queryClient = new QueryClient();
   return (
     <ThemeProvider theme={AppTheme}>
-      <RecoilRoot>
-        <QueryClientProvider client={queryClient}>
-          <Global styles={globalStyle} />
-          <AppStyle>
-            <Routes>
-              <Route path="/auth/login" element={<Login />} />
-              <Route path="/auth/signup" element={<SignUp />} />
-              <Route path="/" element={<Todo />} />
-            </Routes>
-          </AppStyle>
-          <Modal />
-        </QueryClientProvider>
-      </RecoilRoot>
+      <Global styles={globalStyle} />
+      <AppStyle>
+        <Routes>
+          <Route path="/about" element={<About />} />
+          <Route path="/" element={<Todo />} />
+        </Routes>
+      </AppStyle>
+      <Modal />
     </ThemeProvider>
   );
 }

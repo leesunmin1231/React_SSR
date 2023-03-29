@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const AuthFrame = styled.div`
+export const AboutFrame = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
