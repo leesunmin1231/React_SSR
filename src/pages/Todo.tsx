@@ -36,17 +36,3 @@ const TopBar = styled.nav`
   padding-left: 50px;
   padding-right: 20px;
 `;
-
-// const TodoSection = styled.section`
-//   width: 700px;
-//   padding-bottom: 50px;
-//   margin-top: 30px;
-// `;
-
-// const Header = styled.header`
-//   font-size: 40px;
-//   width: 700px;
-//   height: 60px;
-//   text-align: center;
-//   color: ${({ theme }) => theme.colors.PRIMARY};
-// `;
