@@ -340,7 +340,7 @@
   align-items: center;
   padding-left: 50px;
   padding-right: 20px;
-`;function ce(){return(0,t.jsxs)(re,{children:[(0,t.jsx)("div",{children:"About"}),(0,t.jsx)(p.Link,{to:"/",children:(0,t.jsx)(E,{children:"Todo"})})]})}const he={colors:{PRIMARY:"#5A85E3",PRIMARY_DARK:"#1F59D7",PRIMARY_LIGHT:"#B5C8F3",OFF_WHITE:"#F7F4FD",WHITE:"#FFFFFF",BLACK:"#333333",GRAY1:"#888888",GRAY2:"#BBBBBB",GRAY3:"#D7D7D7",GRAY4:"#EEEEEE",GRAY5:"#F5F5F5",RED:"#C83A68",LIGHT_BLACK:"#464646",POINT_COLOR:"#C75DE0",BACKGROUND:"#f8f9f9"}};function pe(){const{display:e,message:o,buttons:n}=(0,h.useSelector)((e=>e.modalInfo)),{closeModal:i}=W();return(0,t.jsxs)(xe,{isDisplay:e,children:[(0,t.jsx)(ue,{isDisplay:e,onClick:i}),e&&(0,t.jsxs)(me,{children:[(0,t.jsx)(ge,{children:o}),(0,t.jsx)(fe,{children:n.map((e=>(0,t.jsx)(E,{onClick:e.handler,children:e.name},(()=>{const e=Math.random();return String(e)})()+e.name)))})]})]})}const ue=m().div`
+`;function ce(){return(0,t.jsxs)(re,{children:[(0,t.jsx)("div",{children:"About"}),(0,t.jsx)(p.Link,{to:"/",children:(0,t.jsx)(E,{children:"Todo"})})]})}function he(){return(0,t.jsx)("div",{children:"NotFound"})}const pe={colors:{PRIMARY:"#5A85E3",PRIMARY_DARK:"#1F59D7",PRIMARY_LIGHT:"#B5C8F3",OFF_WHITE:"#F7F4FD",WHITE:"#FFFFFF",BLACK:"#333333",GRAY1:"#888888",GRAY2:"#BBBBBB",GRAY3:"#D7D7D7",GRAY4:"#EEEEEE",GRAY5:"#F5F5F5",RED:"#C83A68",LIGHT_BLACK:"#464646",POINT_COLOR:"#C75DE0",BACKGROUND:"#f8f9f9"}};function ue(){const{display:e,message:o,buttons:n}=(0,h.useSelector)((e=>e.modalInfo)),{closeModal:i}=W();return(0,t.jsxs)(me,{isDisplay:e,children:[(0,t.jsx)(xe,{isDisplay:e,onClick:i}),e&&(0,t.jsxs)(ge,{children:[(0,t.jsx)(fe,{children:o}),(0,t.jsx)(be,{children:n.map((e=>(0,t.jsx)(E,{onClick:e.handler,children:e.name},(()=>{const e=Math.random();return String(e)})()+e.name)))})]})]})}const xe=m().div`
   width: 100%;
   height: 100%;
   position: fixed;
@@ -351,7 +351,7 @@
   background-color: ${({theme:e})=>e.colors.BLACK};
   opacity: 0.8;
   overflow: hidden;
-`,xe=m().div`
+`,me=m().div`
   width: 100%;
   height: 100%;
   position: fixed;
@@ -359,7 +359,7 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
-`,me=m().div`
+`,ge=m().div`
   width: min-content;
   height: min-content;
   position: relative;
@@ -371,21 +371,21 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`,ge=m().div`
+`,fe=m().div`
   width: min-content;
   line-height: 30px;
   margin-bottom: 20px;
   height: max-content;
   text-align: center;
   white-space: pre;
-`,fe=m().div`
+`,be=m().div`
   display: flex;
   width: 300px;
   height: 60px;
   justify-content: space-evenly;
   align-items: center;
-`,be=m().div`
+`,ye=m().div`
   height: 100%;
   width: 100%;
   position: absolute;
-`,ye=function(){return(0,t.jsxs)(u.ThemeProvider,{theme:he,children:[(0,t.jsx)(u.Global,{styles:g}),(0,t.jsx)(be,{children:(0,t.jsxs)(p.Routes,{children:[(0,t.jsx)(p.Route,{path:"/about",element:(0,t.jsx)(ce,{})}),(0,t.jsx)(p.Route,{path:"/",element:(0,t.jsx)(le,{})})]})}),(0,t.jsx)(pe,{})]})},je=(0,y.combineReducers)({todos:$,modalInfo:M}),ve=JSON.parse(c().readFileSync(d().resolve("./build/asset-manifest.json"),"utf8")),we=r()(),Re=r().static(d().resolve("./build"),{index:!1});we.use(Re),we.use((async(e,o)=>{const i={done:!1,promises:[]},r=(0,y.configureStore)({reducer:je,preloadedState:{todos:undefined}});const l=(0,t.jsx)(ee.Provider,{value:i,children:(0,t.jsx)(h.Provider,{store:r,children:(0,t.jsx)(s.StaticRouter,{location:e.url,children:(0,t.jsx)(ye,{})})})});n().renderToStaticMarkup(l);try{await Promise.all(i.promises)}catch(e){return o.status(500)}i.done=!0;const d=n().renderToString(l),a=`<script>__PRELOADED_STATE__=${JSON.stringify(r.getState().todos).replace(/</g,"\\u003c")}<\/script>`;return o.send(((e,t)=>`<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><link rel="shortcut icon" href="/favicon.ico" /><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/><meta name="theme-color" content="#000000" /><title>React App</title></head><body><div id="root">${e}</div>${t}<script src="${ve.files["main.js"]}"><\/script></body></html>`)(d,a))})),we.listen(3e3,(()=>{console.log("Now listening on port 3000")}))})();
+`,je=function(){return(0,t.jsxs)(u.ThemeProvider,{theme:pe,children:[(0,t.jsx)(u.Global,{styles:g}),(0,t.jsx)(ye,{children:(0,t.jsxs)(p.Routes,{children:[(0,t.jsx)(p.Route,{path:"/about",element:(0,t.jsx)(ce,{})}),(0,t.jsx)(p.Route,{path:"/",element:(0,t.jsx)(le,{})}),(0,t.jsx)(p.Route,{path:"*",element:(0,t.jsx)(he,{})})]})}),(0,t.jsx)(ue,{})]})},ve=(0,y.combineReducers)({todos:$,modalInfo:M}),we=JSON.parse(c().readFileSync(d().resolve("./build/asset-manifest.json"),"utf8")),Re=r()(),Te=r().static(d().resolve("./build"),{index:!1});Re.use(Te),Re.use((async(e,o)=>{const i={done:!1,promises:[]},r=(0,y.configureStore)({reducer:ve,preloadedState:{todos:undefined}});const l=(0,t.jsx)(ee.Provider,{value:i,children:(0,t.jsx)(h.Provider,{store:r,children:(0,t.jsx)(s.StaticRouter,{location:e.url,children:(0,t.jsx)(je,{})})})});n().renderToStaticMarkup(l);try{await Promise.all(i.promises)}catch(e){return o.status(500)}i.done=!0;const d=n().renderToString(l),a=`<script>__PRELOADED_STATE__=${JSON.stringify(r.getState().todos).replace(/</g,"\\u003c")}<\/script>`;return o.send(((e,t)=>`<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><link rel="shortcut icon" href="/favicon.ico" /><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/><meta name="theme-color" content="#000000" /><title>React App</title></head><body><div id="root">${e}</div>${t}<script src="${we.files["main.js"]}"><\/script></body></html>`)(d,a))})),Re.listen(3e3,(()=>{console.log("Now listening on port 3000")}))})();

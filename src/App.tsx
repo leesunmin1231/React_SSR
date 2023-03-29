@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import globalStyle from './styles/global';
 import Todo from './pages/Todo';
 import About from './pages/About';
+import NotFound from './pages/NotFound';
 import AppTheme from './styles/theme';
 import Modal from './components/Modal';
 
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/about" element={<About />} />
           <Route path="/" element={<Todo />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </AppStyle>
       <Modal />
