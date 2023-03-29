@@ -6,7 +6,7 @@ import type { TodoResponseInterface } from '../../../module/todos';
 import useModal from '../../../hooks/useModal';
 import type { AppDispatch } from '../../../module/store';
 import { updateTodo, removeTodo } from '../../../module/todos';
-import { httpPut } from '../../../util/http';
+import { httpPut, httpDelete } from '../../../util/http';
 import { getApiUrl } from '../../../util/getApiUrl';
 
 function TodoItemBox({ currentTodo }: { currentTodo: TodoResponseInterface }) {
@@ -37,6 +37,7 @@ function TodoItemBox({ currentTodo }: { currentTodo: TodoResponseInterface }) {
   };
   const deleteTodo = () => {
     dispatch(removeTodo(currentTodo.id));
+    httpDelete(getApiUrl(`/todos/${currentTodo.id}`));
     closeModal();
   };
   const deleteHandler = () => {

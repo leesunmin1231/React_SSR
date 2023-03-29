@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, hydrate } from 'react-dom';
+import { hydrateRoot, createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { initStore } from './module/store';
@@ -19,7 +19,7 @@ function Root() {
 
 const root = document.getElementById('root') as HTMLElement;
 if (process.env.NODE_ENV === 'production') {
-  hydrate(<Root />, root);
+  hydrateRoot(root, <Root />);
 } else {
-  render(<Root />, root);
+  createRoot(root).render(<Root />);
 }
